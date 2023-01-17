@@ -19,9 +19,6 @@ cmake \
   -DGOROOT=`go env GOROOT` \
   -S $PODS_TARGET_SRCROOT
 
-export GOROOT=`go env GOROOT`
-echo $GOROOT
-
 xcodebuild -alltargets -configuration $CONFIGURATION
 
 cp -v \
