@@ -48,7 +48,7 @@ if(NOT GOCMD)
     message(FATAL_ERROR "go executable not found")
 else()
     # try simply with go
-    set(GOCMD "go")
+    #set(GOCMD "go")
 endif()
 
 add_custom_command(
