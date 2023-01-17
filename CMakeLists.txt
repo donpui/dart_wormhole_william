@@ -42,10 +42,13 @@ file(GLOB_RECURSE WORMHOLE_WILLIAM_SRC_FILES
   ${WORMHOLE_WILLIAM_GO_DIR}/c/**.c
   ${WORMHOLE_WILLIAM_GO_DIR}/c/**.h)
 
-# in case GOCMD is not set, try to find it
+# Try find GO path if not, try to set to simple commpand
 find_program(GOCMD go)
 if(NOT GOCMD)
     message(FATAL_ERROR "go executable not found")
+else()
+    # try simply with go
+    set(GOCMD "go")
 endif()
 
 add_custom_command(
@@ -57,7 +60,7 @@ add_custom_command(
     ${EXPORT} GOOS=${GOOS}&&
     ${EXPORT} CC_FOR_TARGET=${CC_FOR_TARGET}&&
     ${EXPORT} CC=${CC_FOR_TARGET}&&
-    go build -buildmode=${BUILDMODE} -o ${WORMHOLE_WILLIAM_LIB} ${WORMHOLE_WILLIAM_C_DIR}
+    ${GOCMD} build -buildmode=${BUILDMODE} -o ${WORMHOLE_WILLIAM_LIB} ${WORMHOLE_WILLIAM_C_DIR}
   COMMAND ${CREATE_HEADER_CMD}
   USES_TERMINAL
   DEPENDS ${WORMHOLE_WILLIAM_SRC_FILES}
